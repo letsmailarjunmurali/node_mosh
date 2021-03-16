@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+//by default json not supported to parse body req.
+app.use(express.json());
 
 const courses = [
   { id: 1, name: "Course1" },
@@ -34,6 +36,13 @@ app.get("/api/posts/:year/:month", (req, res) => {
 // GET /posts/2008/12?sortBy=name
 app.get("/api/posts/:year/:month", (req, res) => {
   res.send(req.query);
+});
+
+// POST /api/courses
+app.post("/api/courses", (req, res) => {
+  const course = { id: courses.length + 1, name: req.body.name };
+  courses.push(course);
+  res.send(courses);
 });
 
 const port = process.env.PORT || 3000;
