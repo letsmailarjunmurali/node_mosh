@@ -1,12 +1,41 @@
 const express = require("express");
 const app = express();
 
+const courses = [
+  { id: 1, name: "Course1" },
+  { id: 2, name: "Course2" },
+  { id: 3, name: "Course3" },
+];
+
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
 app.get("/api/courses", (req, res) => {
-  res.send([1, 2, 3]);
+  res.send(courses);
 });
 
-app.listen(3000, () => console.log("Listening on port 3000"));
+// 1. Route parms
+//If u want to get particular id
+// GET /api/customer/1
+app.get("/api/courses/:id", (req, res) => {
+  //res.send(req.params.id);
+  const course = courses.find((c) => c.id === parseInt(req.params.id));
+  if (!course) res.status(404).send("The course with given ID was not found");
+  res.send(course);
+});
+
+// GET /api/posts/2008/12
+app.get("/api/posts/:year/:month", (req, res) => {
+  res.send(req.params);
+});
+
+// 2. Query params used for adding optional
+// GET /posts/2008/12?sortBy=name
+app.get("/api/posts/:year/:month", (req, res) => {
+  res.send(req.query);
+});
+
+const port = process.env.PORT || 3000;
+
+app.listen(3000, () => console.log(`Listening on port ${port}`));
