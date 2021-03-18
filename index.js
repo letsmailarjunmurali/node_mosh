@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const Joi = require("joi");
 //by default json not supported to parse body req.
 app.use(express.json());
 
@@ -41,9 +42,15 @@ app.get("/api/posts/:year/:month", (req, res) => {
 // POST /api/courses
 app.post("/api/courses", (req, res) => {
   // validation
-  if (!req.body.name || req.body.name.length < 3) {
+  const schema = { name: Joi.string().min(3).required() };
+
+  const result = Joi.validate(req.body, schema);
+
+  //console.log(result);
+
+  if (result.error) {
     // Bad request
-    res.status(400).send("Name is required and should be minimum 3 character");
+    res.status(400).send(result.error.details[0].message);
     return;
   }
   const course = { id: courses.length + 1, name: req.body.name };
