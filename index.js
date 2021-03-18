@@ -40,6 +40,12 @@ app.get("/api/posts/:year/:month", (req, res) => {
 
 // POST /api/courses
 app.post("/api/courses", (req, res) => {
+  // validation
+  if (!req.body.name || req.body.name.length < 3) {
+    // Bad request
+    res.status(400).send("Name is required and should be minimum 3 character");
+    return;
+  }
   const course = { id: courses.length + 1, name: req.body.name };
   courses.push(course);
   res.send(courses);
