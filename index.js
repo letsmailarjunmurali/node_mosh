@@ -5,6 +5,7 @@ const logger = require("./Logger");
 const Joi = require("joi");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const config = require("config");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,6 +13,10 @@ app.use(express.static("public"));
 
 app.use(helmet());
 app.use(morgan("tiny"));
+
+console.log("Appilication name" + config.get("name"));
+console.log("Appilication name" + config.get("mail.host"));
+console.log("Appilication name" + config.get("mail.password"));
 
 console.log(`NODE_ENV:${process.env.NODE_ENV}`);
 console.log(`app:${app.get("env")}`);
