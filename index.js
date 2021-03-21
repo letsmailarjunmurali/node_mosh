@@ -4,13 +4,8 @@ const app = express();
 const Joi = require("joi");
 
 app.use(express.json());
-
-app.use(logger); //create separate middleware file
-
-app.use(function (req, res, next) {
-  console.log("Authenticating");
-  next();
-});
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 const courses = [
   { id: 1, name: "Course1" },
