@@ -1,9 +1,6 @@
 console.log("Before");
 
-getUser(1, (user) => {
-  console.log(user);
-  getRepositories(user.githubUsername, getRepositories);
-});
+getUser(1, getRepositories);
 
 console.log("After");
 
