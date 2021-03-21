@@ -8,3 +8,5 @@ setTimeout(() => {
 
 // Synchronous
 console.log("After");
+
+// Achieve Asynchronous  using 1.Callback 2.Promises 3.Async/Await
