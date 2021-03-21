@@ -1,12 +1,14 @@
-// Synchronous
 console.log("Before");
 
-// Asynchronous
-setTimeout(() => {
-  console.log("Reading from database");
-}, 2000);
+getUser(1, (user) => {
+  console.log(user);
+});
 
-// Synchronous
 console.log("After");
 
-// Achieve Asynchronous  using 1.Callback 2.Promises 3.Async/Await
+function getUser(id, callback) {
+  setTimeout(() => {
+    console.log("Reading from database");
+    callback({ id: id, githubUsername: "arjun" });
+  }, 2000);
+}
