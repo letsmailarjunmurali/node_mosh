@@ -20,11 +20,24 @@ promises
 // console.log("After");
 
 // consuming promisses
-getUser(1)
-  .then((user) => getRepositories(user.gitHubUsername))
-  .then((repos) => getCommits(repos[0]))
-  .then((commits) => console.log(commits))
-  .catch((err) => console.log(err));
+// getUser(1)
+//   .then((user) => getRepositories(user.gitHubUsername))
+//   .then((repos) => getCommits(repos[0]))
+//   .then((commits) => console.log(commits))
+//   .catch((err) => console.log(err));
+
+async function displayCommits() {
+  try {
+    const user = await getUser(1);
+    const repo = await getRepositories(user.gitHubUsername);
+    const commits = await getCommits(repo[0]);
+    console.log(commits);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+displayCommits();
 
 function getUser(id) {
   return new Promise((resolve, reject) => {
