@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/letsmailarjunmurali/node_mosh#readme",
   "dependencies": {
+    "mongoose": "^5.0.1",
     "nodemon": "^2.0.7"
   }
 }
