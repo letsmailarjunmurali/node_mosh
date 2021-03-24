@@ -60,3 +60,35 @@ async function getCourses1() {
     .select({ name: 1, tags: 1 });
   console.log("Get " + courses);
 }
+
+// Regular expression
+
+async function getCourses2() {
+  const courses = await Course.find()
+    // Starts with mosh
+    .find({ author: /^Mosh/ })
+    //Ends with mosh
+    .find({ author: /Hamedani$/i })
+    // Contains with mosh
+    .find({ author: /.*Mosh.*/i })
+    .limit(10)
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 });
+  console.log("Get " + courses);
+}
+
+// Pagination
+// /api/courses?pageNumber=2&pageSize=10
+async function getCourses3 {
+  const pageNumber = 2;
+  const pageSize = 10;
+
+  const courses = await Course.find()
+    .find({ author: "Mosh", isPublished: true })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize)
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 });
+  console.log("Get " + courses);
+}
+
